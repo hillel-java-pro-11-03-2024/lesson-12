@@ -51,6 +51,10 @@ public class Terminal {
         wordCounts = analyzeBook(book);
       } catch (CantReadFileException e) {
         print("Cannot read the file, it may be corrupted.", true);
+        print("Press enter for continue...", false);
+        scanner.nextLine();
+        clearConsole();
+        continue;
       }
 
       if (wordCounts.isEmpty()) {
