@@ -4,6 +4,7 @@ import Exceptions.CantReadFileException;
 import Exceptions.CantWriteToFileException;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,9 +28,13 @@ public class FileUtils {
     }
   }
 
-  public static File searchBook(String bookName) {
+  public static File searchBook(String bookName) throws FileNotFoundException {
     String filePath = "src/" + bookName + ".txt";
-    return new File(filePath);
+    File file = new File(filePath);
+    if (!file.exists()) {
+      throw new FileNotFoundException();
+    }
+    return file;
   }
 
   public static Map<String, Integer> analyzeBook(File bookFile) throws CantReadFileException {

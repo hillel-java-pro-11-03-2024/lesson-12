@@ -9,6 +9,7 @@ import static Utils.FileUtils.writeStatisticsToFile;
 import Exceptions.CantReadFileException;
 import Exceptions.CantWriteToFileException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -17,6 +18,7 @@ public class Terminal {
 
   static Scanner scanner = new Scanner(System.in);
   static Map<String, Integer> wordCounts = new HashMap<>();
+  static File bookFile;
 
   public static void run() {
     clearConsole();
@@ -36,19 +38,19 @@ public class Terminal {
 
       print("Book name: " + input, true);
       print("Searching... ", false);
-      File book = searchBook(input);
-      if (!book.exists()) {
+      try {
+        bookFile = searchBook(input);
+      } catch (FileNotFoundException e) {
         print("The book \"" + input + "\" not found.", true);
         print("Press enter for continue...", false);
         scanner.nextLine();
         clearConsole();
         continue;
-      } else {
-        print("File found, size: " + book.length() + " bytes", true);
       }
+      print("File found, size: " + bookFile.length() + " bytes", true);
 
       try {
-        wordCounts = analyzeBook(book);
+        wordCounts = analyzeBook(bookFile);
       } catch (CantReadFileException e) {
         print("Cannot read the file, it may be corrupted.", true);
         print("Press enter for continue...", false);
