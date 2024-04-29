@@ -14,11 +14,12 @@ import java.util.Map;
 public class FileUtils {
 
   private static final String ROOT_FOLDER = "src/";
-  private static final String FILE_EXTRA = "_statistic.txt";
+  private static final String STAT_EXTENSION = "_statistic.txt";
+  private static final String TXT_EXTENSION = ".txt";
 
   public static void writeStatisticsToFile(String bookName, Map<String, Integer> wordCounts)
       throws CantWriteToFileException {
-    String outputFilePath = String.format("%s%s%s", ROOT_FOLDER, bookName, FILE_EXTRA);
+    String outputFilePath = String.format("%s%s%s", ROOT_FOLDER, bookName, STAT_EXTENSION);
     int totalWords = 0;
     try (FileWriter writer = new FileWriter(outputFilePath)) {
       for (Map.Entry<String, Integer> entry : wordCounts.entrySet()) {
@@ -32,7 +33,7 @@ public class FileUtils {
   }
 
   public static File searchBook(String bookName) throws FileNotFoundException {
-    String filePath = "src/" + bookName + ".txt";
+    String filePath = String.format("%s%s%s", ROOT_FOLDER, bookName, TXT_EXTENSION);
     File file = new File(filePath);
     if (!file.exists()) {
       throw new FileNotFoundException();
