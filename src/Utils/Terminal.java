@@ -16,9 +16,10 @@ import java.util.Scanner;
 
 public class Terminal {
 
-  static Scanner scanner = new Scanner(System.in);
-  static Map<String, Integer> wordCounts = new HashMap<>();
-  static File bookFile;
+  private static final Scanner scanner = new Scanner(System.in);
+  private static Map<String, Integer> wordCounts = new HashMap<>();
+  private static File bookFile;
+  private static final String CMD_EXIT = "exit";
 
   public static void run() {
     clearConsole();
@@ -31,7 +32,7 @@ public class Terminal {
       print("Please enter a book name for analyze: ", false);
       input = scanner.nextLine();
 
-      if (input.equals("exit")) {
+      if (input.equals(CMD_EXIT)) {
         print("Exiting. Have a good day.", false);
         break;
       }

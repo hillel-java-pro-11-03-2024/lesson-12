@@ -13,9 +13,12 @@ import java.util.Map;
 
 public class FileUtils {
 
+  private static final String ROOT_FOLDER = "src/";
+  private static final String FILE_EXTRA = "_statistic.txt";
+
   public static void writeStatisticsToFile(String bookName, Map<String, Integer> wordCounts)
       throws CantWriteToFileException {
-    String outputFilePath = "src/" + bookName + "_statistic.txt";
+    String outputFilePath = String.format("%s%s%s", ROOT_FOLDER, bookName, FILE_EXTRA);
     int totalWords = 0;
     try (FileWriter writer = new FileWriter(outputFilePath)) {
       for (Map.Entry<String, Integer> entry : wordCounts.entrySet()) {
